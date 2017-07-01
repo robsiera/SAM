@@ -61,7 +61,6 @@
     </p>
 </footer>
 
-
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -84,11 +83,11 @@
         //model.present(data) ;
 
         // server side
-        $.post( "http://localhost:5425/app/v1/present", data) 
-            .done(function( representation ) {
-                    $( "#representation" ).html( representation );
-                }		
-            );
+        $.post("http://localhost:5425/app/v1/present", data)
+            .done(function (representation) {
+                $("#representation").html(representation);
+            }
+        );
     }
 
     function init() {
@@ -96,16 +95,17 @@
         //view.display(view.init(model)) ;
 
         // server side
-        $.get( "http://localhost:5425/app/v1/init", function( data ) {
-                $( "#representation" ).html( data );
-            }		
+        $.get("http://localhost:5425/app/v1/init", function (data)
+            {
+                $("#representation").html(data);
+            }
         );
     }
 
 
 
     // Display initial state
-    init() ;
+    init();
 
 
 </script>
