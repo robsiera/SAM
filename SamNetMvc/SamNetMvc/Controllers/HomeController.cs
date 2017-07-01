@@ -13,7 +13,7 @@ namespace SamNetMvc.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Demo1()
         {
             ViewBag.Message = "Your application description page.";
 
