@@ -80,26 +80,26 @@
 
     function present(data) {
         // client side
-        //model.present(data) ;
+        model.present(data);
 
         // server side
-        $.post("http://localhost:5425/app/v1/present", data)
-            .done(function (representation) {
-                $("#representation").html(representation);
-            }
-        );
+        //$.post("http://localhost:5425/app/v1/present", data)
+        //    .done(function (representation) {
+        //        $("#representation").html(representation);
+        //    }
+        //);
     }
 
     function init() {
         // client side
-        //view.display(view.init(model)) ;
+        view.display(view.init(model));
 
         // server side
-        $.get("http://localhost:5425/app/v1/init", function (data)
-            {
-                $("#representation").html(data);
-            }
-        );
+        //$.get("http://localhost:5425/app/v1/init", function (data)
+        //    {
+        //        $("#representation").html(data);
+        //    }
+        //);
     }
 
 
