@@ -20,7 +20,7 @@ namespace SamNetMvc.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Demo2()
         {
             ViewBag.Message = "Your contact page.";
 

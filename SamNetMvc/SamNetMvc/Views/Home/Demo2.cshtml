@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Demo 1";
+    ViewBag.Title = "Demo 2";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
@@ -28,7 +28,7 @@
 }
 
 <div class="intro">
-    <p>implements https://github.com/jdubray/sam-samples/tree/master/crud-blog with client-side model</p>
+    <p>implements https://github.com/jdubray/sam-samples/tree/master/crud-blog with server-side model</p>
 </div>
 <div class="blog-masthead">
     <div class="container">
@@ -77,7 +77,7 @@
 <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
 
 <!-- The file blog.js is the isomorphic part of the application -->
-<script type="text/javascript" src="\sam\demo1\blog.js"></script>
+<script type="text/javascript" src="\sam\demo2\blog.js"></script>
 
 <script type="text/javascript">
 
@@ -86,26 +86,26 @@
 
     function present(data) {
         // client side
-        model.present(data);
+        //model.present(data);
 
         // server side
-        //$.post("http://localhost:5425/app/v1/present", data)
-        //    .done(function (representation) {
-        //        $("#representation").html(representation);
-        //    }
-        //);
+        $.post("http://localhost:21249/api/Demo2/present", data)
+            .done(function (representation) {
+                $("#representation").html(representation);
+            }
+        );
     }
 
     function init() {
         // client side
-        view.display(view.init(model));
+        //view.display(view.init(model));
 
         // server side
-        //$.get("http://localhost:5425/app/v1/init", function (data)
-        //    {
-        //        $("#representation").html(data);
-        //    }
-        //);
+        $.get("http://localhost:21249/api/Demo2/init", function (data)
+            {
+                $("#representation").html(data);
+            }
+        );
     }
 
     // Display initial state
