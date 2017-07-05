@@ -14,31 +14,14 @@ namespace SamNetMvc.Controllers
     {
         private readonly SamView view = new SamView();
         private readonly SamState state = new SamState();
-        private readonly SamModel model = new SamModel();
+        private readonly SamModel model;
         private string _returnRepresentation;
 
         public Demo2Controller()
         {
-            model.posts.Add(new BlogPost
-            {
-                id = 1,
-                title = "The SAM Pattern",
-                description = "SAM is a new reactive/functional pattern that simplifies Front-End architectures by clearly separating the business logic from the view and, in particular, strictly decoupling back-end APIs from the Front-End. SAM is technology independent and as such can be used to build Web Apps or Native Apps"
-            });
-            model.posts.Add(new BlogPost
-            {
-                id = 2,
-                title = "Why I no longer use MVC Frameworks",
-                description = "The worst part of my job these days is designing APIs for front-end developers. "
-            });
-            model.itemId = 3;
-
-            ////////////////////////////////////////////////////////////////////////////////
-            // State
-            //
+            model = CreateInitialModel();
             state.view = view;
             model.state = state;
-
         }
 
         #region Api Calls
@@ -77,6 +60,32 @@ namespace SamNetMvc.Controllers
         private string GetReturnRepresentation()
         {
             return _returnRepresentation;
+        }
+
+        /// <summary>
+        /// Creates the initial model.
+        /// </summary>
+        /// <remarks>
+        /// in this demo we don't use a database but an inMemory model. 
+        /// we don't even keep it in a session, thus it gets overridden each time. Not every useful, but al least the demo allows you to follow the code flow.
+        /// </remarks>
+        private static SamModel CreateInitialModel()
+        {
+            var model = new SamModel();
+            model.posts.Add(new BlogPost
+            {
+                id = 1,
+                title = "The SAM Pattern",
+                description = "SAM is a new reactive/functional pattern that simplifies Front-End architectures by clearly separating the business logic from the view and, in particular, strictly decoupling back-end APIs from the Front-End. SAM is technology independent and as such can be used to build Web Apps or Native Apps"
+            });
+            model.posts.Add(new BlogPost
+            {
+                id = 2,
+                title = "Why I no longer use MVC Frameworks",
+                description = "The worst part of my job these days is designing APIs for front-end developers. "
+            });
+            model.itemId = 3;
+            return model;
         }
 
         #endregion
