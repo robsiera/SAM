@@ -40,11 +40,14 @@ namespace SamNetMvc.Controllers
         /// Presents the specified payload to the Model.
         /// POST api/<controller>/Present
         /// </summary>
+        /// <remarks>
+        /// This Api is called with different signatures. See the Actions in /sam/demo2/blog.js
+        /// </remarks>
         [HttpPost]
         public string Present([FromBody]PresenterModel presenterModel)
         {
             PresenterModel data = presenterModel;
-            model.present(data, (representation) => { SetReturnRepresentation(representation); });
+            model.present(data, representation => { SetReturnRepresentation(representation); });
             return GetReturnRepresentation();
         }
 
@@ -95,9 +98,9 @@ namespace SamNetMvc.Controllers
 
     public class PresenterModel : BlogPost
     {
+        public BlogPost item { get; set; }
         public BlogPost lastEdited { get; set; }
         public int deletedItemId { get; set; } = 0;
-        public BlogPost item { get; set; }
     }
 
     internal class SamState
