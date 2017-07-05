@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Hosting;
 using System.Web.Http;
+using HandlebarsDotNet;
 using Newtonsoft.Json.Linq;
 using SamNetMvc.Helpers;
 
@@ -170,10 +173,7 @@ namespace SamNetMvc.Controllers
             var output = (
                 $@"<br><br><div class=""blog-post"">{Environment.NewLine}" + model.posts.map((e) =>
                 {
-                    return (
-                        $@"<br><br><h3 class=""blog-post-title"" onclick=""JavaScript:return actions.edit({{'title':'{e.title}', 'description':'{e.description}', 'id':'{e.id}'}});"">{e.title}</h3>{Environment.NewLine}"
-                        + $@"<p class=""blog-post-meta"">{e.description}</p>"
-                        + $@"<button onclick=""JavaScript:return actions.delete({{'id':'{e.id}'}});"">Delete</button>");
+                    return RenderHbs("post", e);
 
                 }).@join($"{Environment.NewLine}") + $@"{Environment.NewLine}</div>{Environment.NewLine}
                 <br><br>{Environment.NewLine}
@@ -186,11 +186,17 @@ namespace SamNetMvc.Controllers
             return output;
         }
 
+        private static string RenderHbs(string templateSource, dynamic model)
+        {
+            var file = HostingEnvironment.MapPath($@"~/sam/demo2/templates/{templateSource}.hbs");
+            var template = Handlebars.Compile(File.ReadAllText(file));
+            var retval = template(model);
+            return retval;
+        }
+
         public void display(string representation, Action<string> next)
         {
             next(representation);
-            //var stateRepresentation = document.getElementById("representation");
-            //stateRepresentation.innerHTML = representation;
         }
     }
 
@@ -245,13 +251,14 @@ namespace SamNetMvc.Controllers
                 if (data.item.id > 0)
                 {
                     // has been edited
-                    var index = 0;
+                    var index = -1;
                     foreach (var el in model.posts)
                     {
                         index += 1;
                         if (el.id == data.item.id)
                         {
                             model.posts[index] = data.item;
+                            break;
                         }
                     }
                 }
