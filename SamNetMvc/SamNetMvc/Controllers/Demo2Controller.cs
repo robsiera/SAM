@@ -208,12 +208,6 @@ namespace SamNetMvc.Controllers
 
         public void present(PresenterModel data, Action<string> next)
         {
-            if (data == null)
-            {
-                Debugger.Break();
-                //following js line still needs to be converted
-                //data = data || { };
-            }
             var model = this;
             if (data?.deletedItemId > 0)
             {
